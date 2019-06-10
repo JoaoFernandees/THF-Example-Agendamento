@@ -1,0 +1,29 @@
+<thf-modal
+  [t-primary-action]="acaoPrimaria"
+  t-size="sm"
+  t-hide-close="true"
+  [t-title]="edicaoDaAgenda"
+  [t-secondary-action]="acaoSecundaria">
+
+  <form [formGroup]="editarAgendaForm">
+    <div>
+      <thf-input     
+        name="nomeLocal"
+        class="thf-xl-8 thf-lg-8 thf-md-8 thf-sm-8" 
+        formControlName="nomeLocal"
+        t-disabled
+        [t-label]="nomeLocal">      
+      </thf-input>   
+    </div>      
+
+    <div>
+      <thf-input
+        name="nomeAgenda"      
+        class="thf-xl-8 thf-lg-8 thf-md-8 thf-sm-8"     
+        formControlName="nomeAgenda" 
+        [t-placeholder]="informeNomeDaAgenda"
+        [t-label]="nomeDaAgenda">
+      </thf-input>
+    </div>                   
+  </form>
+</thf-modal>

@@ -1,26 +1,16 @@
-<thf-page-default
-  [t-title]="global.i18n.literals?.meusLocais"
-  [t-actions]="acoesPagina">
-
-  <app-adicionar-local (onConfirmouCadastro)="buscarAgendas($event)"></app-adicionar-local>
-  <app-editar-local (onConfirmouEdicao)="getAllLocais()"></app-editar-local>
+<thf-page-default t-title = "Meus Locais">
 
   <thf-table
-    [t-columns]="colunas"
-    [t-items]="locais"
-    t-sort="true"
-    [t-loading]="carregando"
-    [t-striped]="true"
-    (t-show-more)="carregarMaisResultados()"
-    [t-show-more-disabled]="!getLocaisService.hasNext"
-    [t-literals]="literaisEspecificas">
+    [t-columns]="local"
+    [t-items]="agenda"
+    [t-striped]="true">
 
     <ng-template
       t-table-row-template
       let-local
       let-i="rowIndex"
-      [t-table-row-template-show]="temItens">             
-      <app-dados-agenda [local]="local"></app-dados-agenda>
+      [t-table-row-template-show]="temItens">
+      <app-dados-agenda (alterarAgenda)="onAlterarAgenda($event)"></app-dados-agenda>
     </ng-template>
   </thf-table>
 
