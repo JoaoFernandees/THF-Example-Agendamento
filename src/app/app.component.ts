@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'THF-Example';
+
+  menus = [
+    { label: 'Hello World', link: './hello-world' },
+    { label: 'Meus Locais', link: './meus-locais'}
+  ];
 }

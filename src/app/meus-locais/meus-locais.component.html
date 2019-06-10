@@ -1,0 +1,27 @@
+<thf-page-default
+  [t-title]="global.i18n.literals?.meusLocais"
+  [t-actions]="acoesPagina">
+
+  <app-adicionar-local (onConfirmouCadastro)="buscarAgendas($event)"></app-adicionar-local>
+  <app-editar-local (onConfirmouEdicao)="getAllLocais()"></app-editar-local>
+
+  <thf-table
+    [t-columns]="colunas"
+    [t-items]="locais"
+    t-sort="true"
+    [t-loading]="carregando"
+    [t-striped]="true"
+    (t-show-more)="carregarMaisResultados()"
+    [t-show-more-disabled]="!getLocaisService.hasNext"
+    [t-literals]="literaisEspecificas">
+
+    <ng-template
+      t-table-row-template
+      let-local
+      let-i="rowIndex"
+      [t-table-row-template-show]="temItens">             
+      <app-dados-agenda [local]="local"></app-dados-agenda>
+    </ng-template>
+  </thf-table>
+
+</thf-page-default>
