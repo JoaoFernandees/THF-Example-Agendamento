@@ -13,4 +13,13 @@ export class EditarAgendaService {
   salva(agenda) {
     return this._httpClient.put(apiUrl, agenda);
   }
+
+  alterarDescricaoAgenda(nomeAgenda) {
+    const agenda = {
+      descricao: nomeAgenda,
+      agendaId: 1,
+      localId: 1
+    };
+    return this._httpClient.post(`${apiUrl}/agendas/alterarDescricao`, agenda);
+  }
 }

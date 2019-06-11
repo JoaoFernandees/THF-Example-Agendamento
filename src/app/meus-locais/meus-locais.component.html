@@ -10,7 +10,7 @@
       let-local
       let-i="rowIndex"
       [t-table-row-template-show]="temItens">
-      <app-dados-agenda (alterarAgenda)="onAlterarAgenda($event)"></app-dados-agenda>
+      <app-dados-agenda [local]="local" (alterarAgenda)="onAlterarAgenda($event)"></app-dados-agenda>
     </ng-template>
   </thf-table>
 

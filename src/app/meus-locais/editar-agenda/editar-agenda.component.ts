@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ThfModalAction, ThfModalComponent } from '@totvs/thf-ui';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { DadosAgendaComponent } from '../dados-agenda/dados-agenda.component';
 import { MeusLocaisComponent } from '../meus-locais.component';
+import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
+import { EditarAgendaService } from './editar-agenda.service';
 
 
 @Component({
@@ -15,10 +17,13 @@ export class EditarAgendaComponent implements OnInit {
   @ViewChild(ThfModalComponent) thfModal: ThfModalComponent;
   @Output() alterarAgenda = new EventEmitter;
 
+  identificadorLocal: string;
+  oldAgenda: { nomeAgenda: string; };
+  private _descricaoAlterada: boolean;
+  private _editarAgendaService: EditarAgendaService;
   editarAgendaForm: FormGroup;
-  agenda: DadosAgendaComponent;
-  local: MeusLocaisComponent;
-  oldAgenda: { nomeLocal: string; nomeAgenda: string; };
+  agenda: any;
+  local: any;
   private _acaoPrimaria: ThfModalAction;
   private _acaoSecundaria: ThfModalAction;
 
@@ -33,6 +38,10 @@ export class EditarAgendaComponent implements OnInit {
     });
     this.setAcaoPrimaria();
     this.setAcaoSecundaria();
+  }
+
+  get isFormularioAlterado(): boolean {
+    return this._descricaoAlterada;
   }
 
   onAlterarAgenda(evento) {
@@ -79,10 +88,24 @@ export class EditarAgendaComponent implements OnInit {
 
   setaValoresAgenda() {
     this.editarAgendaForm.patchValue({
-      nomeLocal: this.local,
-      nomeAgenda: this.agenda,
+      nomeLocal: this.local.descricao,
+      nomeAgenda: this.agenda.descricao,
     });
   }
 
-  confirmarEdicao() {}
+  confirmarEdicao() {
+    const local = {
+      id: this.identificadorLocal,
+      local: this.editarAgendaForm.get('nomeAgenda').value,
+      agendas: []
+    };
+      this._editarAgendaService.salva(local).subscribe(() => {
+      this.fecharModal();
+      this.alterarAgenda.emit();
+      });
+    }
+
+  informarModalSemAlteracao() {
+    this.fecharModal();
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ThfTableColumn } from '@totvs/thf-ui';
 import { thfPageEditLiteralsDefault } from '@totvs/thf-ui/components/thf-page/thf-page-edit/thf-page-edit-base.component';
 
@@ -21,8 +21,8 @@ export class MeusLocaisComponent implements OnInit {
 
   getColunas(): Array<ThfTableColumn> {
     return [
-      { property: 'Descrição'},
-      { property: 'Ação', label: this['acoes'], width: '85px', type: 'icon',
+      { property: 'descricao'},
+      { property: 'acao', label: this['acoes'], width: '85px', type: 'icon',
         icons: [{ value: 'editar', icon: 'thf-icon-edit'},
                 {value: 'excluir', icon: 'thf-icon-delete'}
         ]
@@ -30,28 +30,24 @@ export class MeusLocaisComponent implements OnInit {
     ];
   }
 
-  getItems(): Array<any> {
+  private getItems(): Array<any> {
     return [
       {
-        Descrição: 'Enseada',
-        Ação: ['editar', 'excluir']
+        descricao: 'Enseada',
+        acao: ['editar', 'excluir']
       },
       {
-        Descrição: 'Ubatuba',
-        Ação: ['editar', 'excluir']
+        descricao: 'Ubatuba',
+        acao: ['editar', 'excluir']
       },
       {
-        Descrição: 'Itaguaçu',
-        Ação: ['editar', 'excluir']
+        descricao: 'Itaguaçu',
+        acao: ['editar', 'excluir']
       },
       {
-        Descrição: 'Capri',
-        Ação: ['editar', 'excluir']
+        descricao: 'Capri',
+        acao: ['editar', 'excluir']
       }
     ];
-  }
-
-  onAlterarAgenda(evento) {
-
   }
 }

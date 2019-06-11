@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ThfTableColumn } from '@totvs/thf-ui';
 import { EditarAgendaComponent } from '../editar-agenda/editar-agenda.component';
+import { Observable } from 'rxjs';
+import { MeusLocaisService } from '../meus-locais.service';
+import { MeusLocaisComponent } from '../meus-locais.component';
 
 @Component({
   selector: 'app-dados-agenda',
@@ -9,19 +12,25 @@ import { EditarAgendaComponent } from '../editar-agenda/editar-agenda.component'
 })
 export class DadosAgendaComponent implements OnInit {
 
-  local: Array<ThfTableColumn> = this.getColunas();
-  agenda: Array<ThfTableColumn> = this.getAgendas();
+  colunas: Array<ThfTableColumn> = this.getColunas();
+  agendas: Array<any> = this.getAgendas();
+  subLocais: Array<any> = [];
 
   @Output() alterarAgenda = new EventEmitter();
   @ViewChild(EditarAgendaComponent) editarAgendaComponent: EditarAgendaComponent;
+  @Input() local: MeusLocaisComponent;
 
-  constructor() { }
+
+  constructor(
+    private _meusLocaisService: MeusLocaisService
+  ) { }
 
   ngOnInit() {
-    this.agenda = this.getAgendas();
+    this.agendas = this.getAgendas();
   }
 
   onAlterarAgenda(evento) {
+    console.log('xxx', evento);
     this.alterarAgenda.emit(evento);
   }
 
@@ -47,6 +56,10 @@ export class DadosAgendaComponent implements OnInit {
     ];
   }
 
+  abrirModalEdicaoAgenda(agenda) {
+    this.editarAgendaComponent.abrirModal(agenda, this.local);
+  }
+
   getAgendas(): Array<any> {
     return [
       {
@@ -58,9 +71,5 @@ export class DadosAgendaComponent implements OnInit {
         acoes: ['editar']
       }
     ];
-  }
-
-  abrirModalEdicaoAgenda(agenda, local) {
-    this.editarAgendaComponent.abrirModal(agenda, local);
   }
 }
