@@ -94,16 +94,19 @@ export class EditarAgendaComponent implements OnInit {
   }
 
   confirmarEdicao() {
-    const local = {
-      id: this.identificadorLocal,
-      local: this.editarAgendaForm.get('nomeAgenda').value,
-      agendas: []
-    };
-      this._editarAgendaService.salva(local).subscribe(() => {
-      this.fecharModal();
-      this.alterarAgenda.emit();
-      });
-    }
+    this.fecharModal();
+  }
+
+  // confirmarEdicao() {
+  //   this._editarAgendaService.alterarDescricaoAgenda().subscribe(
+  //   (res: any) => {
+  //     this.apresentarToaster(res.mensagem);
+  //     this.fecharModal();
+  //   },
+  //   (error) => {
+  //     console.log(error)
+  //   })
+  // }
 
   informarModalSemAlteracao() {
     this.fecharModal();
