@@ -20,7 +20,6 @@ export class EditarAgendaComponent implements OnInit {
   identificadorLocal: string;
   oldAgenda: { nomeAgenda: string; };
   private _descricaoAlterada: boolean;
-  private _editarAgendaService: EditarAgendaService;
   editarAgendaForm: FormGroup;
   agenda: any;
   local: any;
@@ -28,7 +27,8 @@ export class EditarAgendaComponent implements OnInit {
   private _acaoSecundaria: ThfModalAction;
 
   constructor(
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _editarAgendaService: EditarAgendaService
   ) { }
 
   ngOnInit() {
@@ -94,19 +94,18 @@ export class EditarAgendaComponent implements OnInit {
   }
 
   confirmarEdicao() {
+    const agenda = {
+        id: this.local.id,
+        agendaId: this.agenda.id,
+        descricao: this.editarAgendaForm.get('nomeAgenda').value
+    }
+    this._editarAgendaService.alterarDescricaoAgenda(agenda).subscribe(
+      () => console.log('ok'),
+      (erro) => console.log('erro', erro)
+    );
+    this.alterarAgenda.emit(agenda);
     this.fecharModal();
   }
-
-  // confirmarEdicao() {
-  //   this._editarAgendaService.alterarDescricaoAgenda().subscribe(
-  //   (res: any) => {
-  //     this.apresentarToaster(res.mensagem);
-  //     this.fecharModal();
-  //   },
-  //   (error) => {
-  //     console.log(error)
-  //   })
-  // }
 
   informarModalSemAlteracao() {
     this.fecharModal();

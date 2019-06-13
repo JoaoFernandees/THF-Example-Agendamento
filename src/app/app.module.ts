@@ -9,6 +9,7 @@ import { MeusLocaisComponent } from './meus-locais/meus-locais.component';
 import { DadosAgendaComponent } from './meus-locais/dados-agenda/dados-agenda.component';
 import { EditarAgendaComponent } from './meus-locais/editar-agenda/editar-agenda.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditarAgendaService } from './meus-locais/editar-agenda/editar-agenda.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ThfModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [EditarAgendaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

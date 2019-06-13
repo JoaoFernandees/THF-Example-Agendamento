@@ -9,14 +9,14 @@ import { thfPageEditLiteralsDefault } from '@totvs/thf-ui/components/thf-page/th
 })
 export class MeusLocaisComponent implements OnInit {
 
-  local: Array<ThfTableColumn>;
-  agenda: Array<any>;
+  colunas: Array<ThfTableColumn>;
+  locais: Array<any>;
 
   constructor() { }
 
   ngOnInit() {
-    this.local = this.getColunas();
-    this.agenda = this.getItems();
+    this.colunas = this.getColunas();
+    this.locais = this.getItems();
   }
 
   getColunas(): Array<ThfTableColumn> {
@@ -33,21 +33,27 @@ export class MeusLocaisComponent implements OnInit {
   private getItems(): Array<any> {
     return [
       {
+        id: 'af5560b0-8c37-4944-8207-0a1aab2cbe85',
         descricao: 'Enseada',
-        acao: ['editar', 'excluir']
+        listaAgendas: [
+          {
+            id: 'fc880507-dfd5-4fcd-9542-8af140b32fbf',
+            descricao: 'Rua 12',
+            acoes: ['editar']
+          },
+          {
+            id: 'f211a012-5d7d-4bd9-bb13-e39ac21cf3ea',
+            descricao: 'Rua 13',
+            acoes: ['editar']
+          },
+        ],
       },
-      {
-        descricao: 'Ubatuba',
-        acao: ['editar', 'excluir']
-      },
-      {
-        descricao: 'Itaguaçu',
-        acao: ['editar', 'excluir']
-      },
-      {
-        descricao: 'Capri',
-        acao: ['editar', 'excluir']
-      }
     ];
+  }
+
+  onAlterarAgenda(evento) {
+    const local = this.locais.filter(x => x.id === evento.id)[0];
+    const agenda = local.listaAgendas.filter(x => x.id === evento.agendaId);
+    agenda.map(x => x.descricao = evento.descricao);
   }
 }
